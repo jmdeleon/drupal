@@ -105,8 +105,8 @@ function schedule_event_calendar_views_default_views() {
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
 
-  /* Display: Month */
-  $handler = $view->new_display('panel_pane', 'Month', 'panel_pane_4');
+  /* Display: Month - Calendar */
+  $handler = $view->new_display('panel_pane', 'Month - Calendar', 'panel_pane_4');
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['query'] = FALSE;
@@ -178,8 +178,8 @@ function schedule_event_calendar_views_default_views() {
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
 
-  /* Display: Week */
-  $handler = $view->new_display('panel_pane', 'Week', 'panel_pane_2');
+  /* Display: Week - Calendar */
+  $handler = $view->new_display('panel_pane', 'Week - Calendar', 'panel_pane_2');
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['query'] = FALSE;
@@ -253,8 +253,8 @@ function schedule_event_calendar_views_default_views() {
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
 
-  /* Display: Today */
-  $handler = $view->new_display('panel_pane', 'Today', 'panel_pane_5');
+  /* Display: Today - Calendar */
+  $handler = $view->new_display('panel_pane', 'Today - Calendar', 'panel_pane_5');
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['query'] = FALSE;
@@ -328,38 +328,118 @@ function schedule_event_calendar_views_default_views() {
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
 
-  /* Display: iCal */
-  $handler = $view->new_display('feed', 'iCal', 'feed_1');
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'date_ical';
-  $handler->display->display_options['row_plugin'] = 'date_ical';
-  $handler->display->display_options['row_options']['date_field'] = 'field_data_field_event_date.field_event_date_value';
+  /* Display: Month - Fields */
+  $handler = $view->new_display('panel_pane', 'Month - Fields', 'panel_pane_3');
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
+  $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['defaults']['query'] = FALSE;
+  $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'schedule_event' => 'schedule_event',
+  /* Contextual filter: Content: Event Date -  start date (field_event_date) */
+  $handler->display->display_options['arguments']['field_event_date_value']['id'] = 'field_event_date_value';
+  $handler->display->display_options['arguments']['field_event_date_value']['table'] = 'field_data_field_event_date';
+  $handler->display->display_options['arguments']['field_event_date_value']['field'] = 'field_event_date_value';
+  $handler->display->display_options['arguments']['field_event_date_value']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_event_date_value']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_event_date_value']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_event_date_value']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_event_date_value']['add_delta'] = 'yes';
+  $handler->display->display_options['allow']['use_pager'] = 0;
+  $handler->display->display_options['allow']['items_per_page'] = 0;
+  $handler->display->display_options['allow']['offset'] = 0;
+  $handler->display->display_options['allow']['link_to_view'] = 0;
+  $handler->display->display_options['allow']['more_link'] = 0;
+  $handler->display->display_options['allow']['path_override'] = 0;
+  $handler->display->display_options['allow']['title_override'] = 'title_override';
+  $handler->display->display_options['allow']['exposed_form'] = 0;
+  $handler->display->display_options['allow']['fields_override'] = 0;
+  $handler->display->display_options['argument_input'] = array(
+    'field_event_date_value' => array(
+      'type' => 'panel',
+      'context' => 'entity:bean.field-bean-wetkit-body',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Event Date -  start date (field_event_date)',
+    ),
   );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['path'] = 'events/feeds/ical/%/cal.ics';
-  $handler->display->display_options['displays'] = array(
-    'panel_pane_2' => 'panel_pane_2',
-    'panel_pane_4' => 'panel_pane_4',
-    'panel_pane_5' => 'panel_pane_5',
-    'default' => 0,
+  $handler->display->display_options['inherit_panels_path'] = '1';
+
+  /* Display: Week - Fields */
+  $handler = $view->new_display('panel_pane', 'Week - Fields', 'panel_pane_1');
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
+  $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['defaults']['query'] = FALSE;
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Event Date -  start date (field_event_date) */
+  $handler->display->display_options['arguments']['field_event_date_value']['id'] = 'field_event_date_value';
+  $handler->display->display_options['arguments']['field_event_date_value']['table'] = 'field_data_field_event_date';
+  $handler->display->display_options['arguments']['field_event_date_value']['field'] = 'field_event_date_value';
+  $handler->display->display_options['arguments']['field_event_date_value']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_event_date_value']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_event_date_value']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_event_date_value']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_event_date_value']['granularity'] = 'week';
+  $handler->display->display_options['arguments']['field_event_date_value']['add_delta'] = 'yes';
+  $handler->display->display_options['allow']['use_pager'] = 0;
+  $handler->display->display_options['allow']['items_per_page'] = 0;
+  $handler->display->display_options['allow']['offset'] = 0;
+  $handler->display->display_options['allow']['link_to_view'] = 0;
+  $handler->display->display_options['allow']['more_link'] = 0;
+  $handler->display->display_options['allow']['path_override'] = 0;
+  $handler->display->display_options['allow']['title_override'] = 'title_override';
+  $handler->display->display_options['allow']['exposed_form'] = 0;
+  $handler->display->display_options['allow']['fields_override'] = 0;
+  $handler->display->display_options['argument_input'] = array(
+    'field_event_date_value' => array(
+      'type' => 'panel',
+      'context' => 'entity:bean.field-bean-wetkit-body',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Event Date -  start date (field_event_date)',
+    ),
   );
+  $handler->display->display_options['inherit_panels_path'] = '1';
+
+  /* Display: Today - Fields */
+  $handler = $view->new_display('panel_pane', 'Today - Fields', 'panel_pane_6');
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
+  $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['defaults']['query'] = FALSE;
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Event Date -  start date (field_event_date) */
+  $handler->display->display_options['arguments']['field_event_date_value']['id'] = 'field_event_date_value';
+  $handler->display->display_options['arguments']['field_event_date_value']['table'] = 'field_data_field_event_date';
+  $handler->display->display_options['arguments']['field_event_date_value']['field'] = 'field_event_date_value';
+  $handler->display->display_options['arguments']['field_event_date_value']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_event_date_value']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_event_date_value']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_event_date_value']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_event_date_value']['granularity'] = 'day';
+  $handler->display->display_options['arguments']['field_event_date_value']['add_delta'] = 'yes';
+  $handler->display->display_options['allow']['use_pager'] = 0;
+  $handler->display->display_options['allow']['items_per_page'] = 0;
+  $handler->display->display_options['allow']['offset'] = 0;
+  $handler->display->display_options['allow']['link_to_view'] = 0;
+  $handler->display->display_options['allow']['more_link'] = 0;
+  $handler->display->display_options['allow']['path_override'] = 0;
+  $handler->display->display_options['allow']['title_override'] = 'title_override';
+  $handler->display->display_options['allow']['exposed_form'] = 0;
+  $handler->display->display_options['allow']['fields_override'] = 0;
+  $handler->display->display_options['argument_input'] = array(
+    'field_event_date_value' => array(
+      'type' => 'panel',
+      'context' => 'entity:bean.field-bean-wetkit-body',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Event Date -  start date (field_event_date)',
+    ),
+  );
+  $handler->display->display_options['inherit_panels_path'] = '1';
 
   /* Display: RSS */
   $handler = $view->new_display('feed', 'RSS', 'feed_2');
@@ -402,6 +482,40 @@ function schedule_event_calendar_views_default_views() {
     'panel_pane_5' => 'panel_pane_5',
     'default' => 0,
   );
+
+  /* Display: iCal */
+  $handler = $view->new_display('feed', 'iCal', 'feed_1');
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'date_ical';
+  $handler->display->display_options['row_plugin'] = 'date_ical';
+  $handler->display->display_options['row_options']['date_field'] = 'field_data_field_event_date.field_event_date_value';
+  $handler->display->display_options['row_options']['location_field'] = 'none';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'schedule_event' => 'schedule_event',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  $handler->display->display_options['path'] = 'events/feeds/ical/%/cal.ics';
+  $handler->display->display_options['displays'] = array(
+    'panel_pane_2' => 'panel_pane_2',
+    'panel_pane_4' => 'panel_pane_4',
+    'panel_pane_5' => 'panel_pane_5',
+    'default' => 0,
+  );
   $translatables['events_panes'] = array(
     t('Master'),
     t('more'),
@@ -411,12 +525,15 @@ function schedule_event_calendar_views_default_views() {
     t('Asc'),
     t('Desc'),
     t('All'),
-    t('Month'),
+    t('Month - Calendar'),
     t('View panes'),
-    t('Week'),
-    t('Today'),
-    t('iCal'),
+    t('Week - Calendar'),
+    t('Today - Calendar'),
+    t('Month - Fields'),
+    t('Week - Fields'),
+    t('Today - Fields'),
     t('RSS'),
+    t('iCal'),
   );
   $export['events_panes'] = $view;
 
@@ -516,7 +633,7 @@ function schedule_event_calendar_views_default_views() {
   $handler->display->display_options['arguments']['date_argument']['date_fields'] = array(
     'field_data_field_event_date.field_event_date_value' => 'field_data_field_event_date.field_event_date_value',
   );
-  $handler->display->display_options['path'] = 'calendar-node-field-event-date/month';
+  $handler->display->display_options['path'] = 'events/pages/month';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Month';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -556,7 +673,7 @@ function schedule_event_calendar_views_default_views() {
   $handler->display->display_options['arguments']['date_argument']['date_fields'] = array(
     'field_data_field_event_date.field_event_date_value' => 'field_data_field_event_date.field_event_date_value',
   );
-  $handler->display->display_options['path'] = 'calendar-node-field-event-date/week';
+  $handler->display->display_options['path'] = 'events/pages/week';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Week';
   $handler->display->display_options['menu']['weight'] = '2';
@@ -592,7 +709,7 @@ function schedule_event_calendar_views_default_views() {
   $handler->display->display_options['arguments']['date_argument']['date_fields'] = array(
     'field_data_field_event_date.field_event_date_value' => 'field_data_field_event_date.field_event_date_value',
   );
-  $handler->display->display_options['path'] = 'calendar-node-field-event-date/day';
+  $handler->display->display_options['path'] = 'events/pages/day';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Day';
   $handler->display->display_options['menu']['weight'] = '3';
@@ -656,7 +773,7 @@ function schedule_event_calendar_views_default_views() {
   $handler->display->display_options['arguments']['date_argument']['date_fields'] = array(
     'field_data_field_event_date.field_event_date_value' => 'field_data_field_event_date.field_event_date_value',
   );
-  $handler->display->display_options['path'] = 'calendar-node-field-event-date/year';
+  $handler->display->display_options['path'] = 'events/pages/year';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Year';
   $handler->display->display_options['menu']['weight'] = '4';
@@ -718,7 +835,42 @@ function schedule_event_calendar_views_default_views() {
   $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
     'field_data_field_event_date.field_event_date_value' => 'field_data_field_event_date.field_event_date_value',
   );
-  $handler->display->display_options['path'] = 'calendar-node-field-event-date/ical/%/calendar.ics';
+  $handler->display->display_options['path'] = 'events/ical/%/calendar.ics';
+  $handler->display->display_options['displays'] = array(
+    'page' => 'page',
+    'page_1' => 'page_1',
+    'page_2' => 'page_2',
+    'page_3' => 'page_3',
+    'block_1' => 'block_1',
+    'block_2' => 'block_2',
+    'default' => 0,
+  );
+
+  /* Display: RSS */
+  $handler = $view->new_display('feed', 'RSS', 'feed_2');
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['style_plugin'] = 'rss';
+  $handler->display->display_options['row_plugin'] = 'node_rss';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Date: Date (node) */
+  $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['table'] = 'node';
+  $handler->display->display_options['filters']['date_filter']['field'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['operator'] = '>=';
+  $handler->display->display_options['filters']['date_filter']['default_date'] = 'now';
+  $handler->display->display_options['filters']['date_filter']['add_delta'] = 'yes';
+  $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
+    'field_data_field_event_date.field_event_date_value' => 'field_data_field_event_date.field_event_date_value',
+  );
+  $handler->display->display_options['path'] = 'events/rss/%/calendar.rss';
   $handler->display->display_options['displays'] = array(
     'page' => 'page',
     'page_1' => 'page_1',
@@ -778,6 +930,7 @@ function schedule_event_calendar_views_default_views() {
     t('Year'),
     t('Block'),
     t('iCal'),
+    t('RSS'),
     t('Upcoming'),
     t('Upcoming events block'),
   );
